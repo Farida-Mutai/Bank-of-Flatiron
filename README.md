@@ -31,10 +31,9 @@ Filter transactions by typing into the search bar. Only transactions with a desc
 **Clone the Repository**
 
    ```bash
-   git clone https://github.com/Farida-Mutai/transaction-app
-
-
-Project Structure
+   git clone   https://github.com/Farida-Mutai/Bank-of-Flatiron
+   
+   Project Structure
 public/db.json: Contains sample transaction data for local simulation.
 src/components/TransactionTable.js: Component for displaying the transaction table.
 src/components/TransactionForm.js: Component for adding new transactions.
