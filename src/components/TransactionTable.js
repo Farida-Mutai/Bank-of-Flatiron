@@ -10,17 +10,12 @@ function TransactionTable({ transactions, onDelete, onSort }) {
       <table>
         <thead>
           <tr>
-          <th>Date
-        
-        </th>
+          <th>Date </th>
             <th>Description</th>
             <th>Amount</th>
             <th>Category</th>
             <th>Actions</th>
-            
-        
-  
-          </tr>
+            </tr>
         </thead>
         <tbody>
           {transactions.map(transaction => (
