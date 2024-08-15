@@ -1,29 +1,42 @@
 import React from 'react';
 
-// TransactionTable Component
-function TransactionTable({ transactions, deleteTransaction }) {
+function TransactionTable({ transactions, onDelete, onSort }) {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Category</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {transactions.map(transaction => (
-          <tr key={transaction.id}>
-            <td>{transaction.description}</td>
-            <td>{transaction.category}</td>
-            <td>
-              <button onClick={() => deleteTransaction(transaction.id)}>Delete</button>
-            </td>
+    <div>
+      <button onClick={() => onSort('description')}>Sort by Description</button>
+      <button onClick={() => onSort('category')}>Sort by Category</button>
+      <table>
+        <thead>
+          <tr>
+          <th>Date
+
+        </th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Actions</th>
+
+
+
           </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+        </thead>
+        <tbody>
+          {transactions.map(transaction => (
+             <tr key={transaction.id}>
+             <td>{transaction.date}</td>
+             <td>{transaction.description}</td>
+             <td>{transaction.amount}</td>
+             <td>{transaction.category}</td>
+
+             <td>
+               <button onClick={() => onDelete(transaction.id)}>Delete</button>
+             </td>
+           </tr>
+         ))}
+       </tbody>
+     </table>
+   </div>
+ );
 }
 
 export default TransactionTable;
