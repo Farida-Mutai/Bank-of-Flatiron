@@ -3,7 +3,8 @@ import React from 'react';
 function TransactionTable({ transactions, onDelete, onSort }) {
   return (
     <div>
-      <button onClick={() => onSort('description')}>Sort by Description</button>
+      <button onClick={() => onSort('description')}>Sort by Description</button> 
+
       <button onClick={() => onSort('category')}>Sort by Category</button>
       <table>
         <thead>
@@ -29,7 +30,7 @@ function TransactionTable({ transactions, onDelete, onSort }) {
              <td>{transaction.category}</td>
 
              <td>
-               <button onClick={() => onDelete(transaction.id)}>Delete</button>
+               <button onClick={() => onDelete(transaction.id)}>Delete</button> 
              </td>
            </tr>
          ))}

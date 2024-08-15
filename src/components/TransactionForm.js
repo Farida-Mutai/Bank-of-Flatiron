@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-function TransactionForm({ onAdd }) {
+function TransactionForm({ onAdd }) { //function that will be called when the form is submitted
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event) => { // function called when the form is submitted
     event.preventDefault();
     if (description && amount && category) {
       onAdd({ description, amount: parseFloat(amount), category });
