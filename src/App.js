@@ -1,64 +1,70 @@
+import React, { useState } from 'react';
 
-//App.js
+// Define the TransactionForm component
+function TransactionForm({ onAdd }) {
+  // State variables to manage form input values
+  const [description, setDescription] = useState('');  // Stores the description of the transaction
+  const [amount, setAmount] = useState('');  // Stores the amount of the transaction as a string
+  const [category, setCategory] = useState('');  // Stores the category of the transaction
+  const [date, setDate] = useState('');  // Stores the date of the transaction
+  
+  // Handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();  // Prevents the default form submission which reloads the page
 
-import React, { useState, useEffect } from 'react';
-import TransactionTable from './components/TransactionTable';
-import TransactionForm from './components/TransactionForm';
-import './App.css';
+    // Check if all required fields are filled
+    if (description && amount && category) {
+      // Call the onAdd function passed as a prop with the new transaction data
+      
+      onAdd({ description, amount: parseFloat(amount), category });
 
-function App() {
-  const [transactions, setTransactions] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortKey, setSortKey] = useState(null);
-
-  useEffect(() => {
-    // Fetch data from the JSON file
-    fetch('/db.json')
-      .then(response => response.json())
-      .then(data => setTransactions(data.transactions))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
-
-  const handleAddTransaction = (newTransaction) => {
-    setTransactions([...transactions, { ...newTransaction, id: Date.now() }]);
+      // Clear form fields after submission
+      setDescription('');  // Reset description to an empty string
+      setAmount('');  // Reset amount to an empty string
+      setCategory('');  // Reset category to an empty string
+      setDate('');  // Reset date to an empty string
+    }
   };
-
-  const handleDeleteTransaction = (id) => {
-    setTransactions(transactions.filter(transaction => transaction.id !== id));
-  };
-
-  const handleSort = (key) => {
-    setSortKey(key);
-  };
-
-  const filteredTransactions = transactions
-    .filter(transaction => 
-      transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => {
-      if (sortKey === null) return 0;
-      if (a[sortKey] < b[sortKey]) return -1;
-      if (a[sortKey] > b[sortKey]) return 1;
-      return 0;
-    });
 
   return (
-    <div>
-      <h2>Bank of Flatiron</h2>
+    <form onSubmit={handleSubmit}>
+      {/* Input field for the description of the transaction */}
       <input
         type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search..."
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="Description"  // Placeholder text when field is empty
       />
-      <TransactionForm onAdd={handleAddTransaction} />
-      <TransactionTable
-        transactions={filteredTransactions}
-        onDelete={handleDeleteTransaction}
-        onSort={handleSort}
+      
+      {/* Input field for the amount of the transaction */}
+      <input
+        type="number"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        placeholder="Amount"  // Placeholder text when field is empty
       />
-    </div>
+      
+      {/* Input field for the category of the transaction */}
+      <input
+        type="text"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        placeholder="Category"  // Placeholder text when field is empty
+      />
+      
+      {/* Input field for the date of the transaction */}
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        placeholder="Date"  // Placeholder text when field is empty (though placeholder is generally not shown for date inputs)
+      />
+      
+      {/* Button to submit the form and add the transaction */}
+      <button type="submit">Add Transaction</button>
+    </form>
   );
 }
 
-export default App;
+// Export the TransactionForm component for use in other parts of the application
+export default TransactionForm;
